@@ -1,5 +1,3 @@
-import { ADDRCONFIG } from "dns";
-
 class Task {
    constructor(name) {
       this.name = name;
@@ -31,7 +29,7 @@ class TaskList {
          <a href="#" class="taskRemove">X</a>
       </li>
       `);
-      elem.innerHTML = tasks.reduce((a,b)=> a+b);
+      elem.innerHTML = tasks.reduce((a,b)=> a+b, '');
    }
 }
 
@@ -45,13 +43,25 @@ const inbox = new TaskList('inbox');
 // add task in DOM
 
 function addDomTask(e, list = inbox){
-   //obtener texo desde el input
+   //obtener texto desde el input
    if(e.key === 'Enter'){
       let task = new Task(this.value);
+   // add task to taskslist
       list.addTask(task, taskContainerElement);
       this.value = '';
    }
-   // add task to taskslist
+}
+function getListTaskIndex(e){
+   let taskItem = e.target.parentElement,
+      listTaskItems = [...taskContainerElement.querySelectorAll('li')];
+      return listTaskItems.indexOf(taskItem);
+}
+function removeDomTask(e,list = inbox) {
+   //detension del click en el enlace de la x
+   if (e.target.tagName === 'A') {
+      list.removeTask(getListTaskIndex(e),taskContainerElement);
+   }
 }
 
 addTaskElement.addEventListener('keyup',addDomTask);
+taskContainerElement.addEventListener('click',removeDomTask)

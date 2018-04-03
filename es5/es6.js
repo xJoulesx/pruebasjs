@@ -2,6 +2,7 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -51,7 +52,7 @@ var TaskList = function () {
          });
          elem.innerHTML = tasks.reduce(function (a, b) {
             return a + b;
-         });
+         }, '');
       }
    }]);
 
@@ -71,13 +72,27 @@ var inbox = new TaskList('inbox');
 function addDomTask(e) {
    var list = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : inbox;
 
-   //obtener texo desde el input
+   //obtener texto desde el input
    if (e.key === 'Enter') {
       var task = new Task(this.value);
+      // add task to taskslist
       list.addTask(task, taskContainerElement);
       this.value = '';
    }
-   // add task to taskslist
+}
+function getListTaskIndex(e) {
+   var taskItem = e.target.parentElement,
+       listTaskItems = [].concat(_toConsumableArray(taskContainerElement.querySelectorAll('li')));
+   return listTaskItems.indexOf(taskItem);
+}
+function removeDomTask(e) {
+   var list = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : inbox;
+
+   //detension del click en el enlace de la x
+   if (e.target.tagName === 'A') {
+      list.removeTask(getListTaskIndex(e), taskContainerElement);
+   }
 }
 
 addTaskElement.addEventListener('keyup', addDomTask);
+taskContainerElement.addEventListener('click', removeDomTask);
