@@ -2,3 +2,7 @@ body {
    height: 100vh;
    background: radial-gradient(#29b6f6,#0277bd,#263238);
 }
+
+.info {
+   background-color: cyan;
+}

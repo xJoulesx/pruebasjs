@@ -4,13 +4,17 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="stylesheet" href="./node_modules/materialize-css/dist/css/materialize.min.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
    <link rel="stylesheet" href="./css/style.css">
    <title>prueba 1</title>
 </head>
 <body>
-   <input type="text" id="add-task" placeholder="Que vas hacer">
-   <ul id="tasks-container"></ul>
-
+   <div class="container">
+      <input type="text" id="add-task" placeholder="Que vas hacer">
+      <ul id="tasks-container" class="collapsible popout "></ul>
+   </div>
+   <script src="./node_modules/materialize-css/dist/js/materialize.min.js"></script>
    <script src="./es5/es6.js"></script>
 </body>
 </html>

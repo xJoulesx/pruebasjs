@@ -22,12 +22,21 @@ class TaskList {
       this.renderTask(elem);
    }
    renderTask(elem){
+      // let tasks = this.tasks.map(task => `
+      // // <li>
+      // //    <div class="collapsible-header">${task.name}
+      // //    <a href="#" class="taskRemove">X</a>
+      // //    </div>
+      // //    <div class="collapsible-body">Lorem Ipsum</div>
+      // // </li>
+      // `);
       let tasks = this.tasks.map(task => `
-      <li class="task">
-         <input type="checkbox" class="taskCompleteButton"/>
-         <span class="taskName">${task.name}</span>
-         <a href="#" class="taskRemove">X</a>
-      </li>
+         <li>
+            <div class="collapsible-header"><i class="material-icons">person</i>${task.name}
+            <a href="#"><i class="material-icons">delete</i></a>
+            </div>
+            <div class="collapsible-body info">Lorem ipsum dolor sit amet.</div>
+         </li>
       `);
       elem.innerHTML = tasks.reduce((a,b)=> a+b, '');
    }
@@ -65,3 +74,5 @@ function removeDomTask(e,list = inbox) {
 
 addTaskElement.addEventListener('keyup',addDomTask);
 taskContainerElement.addEventListener('click',removeDomTask)
+var elem = document.querySelector('.collapsible');
+var instance = M.Collapsible.init(elem);
